@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Marks Checker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #f0f8ff;
+    }
+    label, input {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input {
+      padding: 8px;
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Student Marks Checker (Each Subject out of 80)</h2>
+
+  <label>Name</label>
+  <input type="text" id="Name" placeholder="Enter Student's Name">
+
+  <label>Subject 1</label>
+  <input type="text" id="Subject1" placeholder="Enter Subject 1 Name">
+  <input type="number" id="Marks1" placeholder="Enter Subject 1 Marks (out of 80)">
+
+  <label>Subject 2</label>
+  <input type="text" id="Subject2" placeholder="Enter Subject 2 Name">
+  <input type="number" id="Marks2" placeholder="Enter Subject 2 Marks (out of 80)">
+
+  <label>Subject 3</label>
+  <input type="text" id="Subject3" placeholder="Enter Subject 3 Name">
+  <input type="number" id="Marks3" placeholder="Enter Subject 3 Marks (out of 80)">
+
+  <label>Subject 4</label>
+  <input type="text" id="Subject4" placeholder="Enter Subject 4 Name">
+  <input type="number" id="Marks4" placeholder="Enter Subject 4 Marks (out of 80)">
+
+  <label>Subject 5</label>
+  <input type="text" id="Subject5" placeholder="Enter Subject 5 Name">
+  <input type="number" id="Marks5" placeholder="Enter Subject 5 Marks (out of 80)">
+
+  <button onclick="validateMarks()">Submit</button>
+
+  <div id="result"></div>
+
+  <script>
+    function validateMarks() {
+      const name = document.getElementById("Name").value;
+      const subjects = [
+        document.getElementById("Subject1").value,
+        document.getElementById("Subject2").value,
+        document.getElementById("Subject3").value,
+        document.getElementById("Subject4").value,
+        document.getElementById("Subject5").value
+      ];
+
+      const marks = [
+        parseInt(document.getElementById("Marks1").value),
+        parseInt(document.getElementById("Marks2").value),
+        parseInt(document.getElementById("Marks3").value),
+        parseInt(document.getElementById("Marks4").value),
+        parseInt(document.getElementById("Marks5").value)
+      ];
+
+      const result = document.getElementById("result");
+
+      const maxMarksPerSubject = 80;
+      const passingMarks = 32;
+      let total = 0;
+      let passedAll = true;
+
+      for (let i = 0; i < marks.length; i++) {
+        if (isNaN(marks[i]) || marks[i] < 0 || marks[i] > maxMarksPerSubject) {
+          result.innerHTML = `<span style="color:red">Please enter valid marks (0–${maxMarksPerSubject}) for all subjects.</span>`;
+          return;
+        }
+        total += marks[i];
+        if (marks[i] < passingMarks) {
+          passedAll = false;
+        }
+      }
+
+      const average = total / marks.length;
+      const status = passedAll ? "Passed" : "Failed";
+
+      result.innerHTML = `
+        <p><strong>${name}'s Result:</strong></p>
+        <ul>
+          ${subjects.map((sub, i) => `<li>${sub}: ${marks[i]} / ${maxMarksPerSubject}</li>`).join('')}
+        </ul>
+        <p><strong>Total Marks:</strong> ${total} / 400</p>
+        <p><strong>Average Marks:</strong> ${average.toFixed(2)}</p>
+        <p><strong>Status:</strong> <span style="color:${passedAll ? 'green' : 'red'}">${status}</span></p>
+      `;
+    }
+  </script>
+
+</body>
+</html>

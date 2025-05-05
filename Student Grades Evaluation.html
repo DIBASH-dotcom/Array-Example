@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label>Name</label>
+    <input type="text" id="Name">
+
+    <label> Subject</label>
+    <input type="text" id="Subject" placeholder="enter a subjevt">
+
+    <label>Marks</label>
+ <input type="number" id="Marks" placeholder="Enter a Makrs of student">
+
+ <button onclick="evaluateGrades()">Find</button>
+
+<p id="result"> Find</p>
+
+</body>
+
+
+<script>
+    function evaluateGrades() {
+
+        const Name=document.getElementById("Name").value;
+        const Subject= document.getElementById("Subject").value;
+        const Marks=parseInt(document.getElementById("Marks").value);
+
+        const result=document.getElementById("result");
+
+       let grade="";
+
+       if(isNaN(Marks) || Marks <=0){
+        console.log("please enter a vaid numbers ");
+        return;
+       }
+           else  if (Marks>=50) {
+            grade ="Passed"
+           }
+       
+           else {
+            grade ="failed";
+           }
+
+           result.innerText =`${Name} has obatined ${Marks}  marks on ${Subject} so he is ${grade}`;
+
+
+    }
+
+
+</script>
+</html>
